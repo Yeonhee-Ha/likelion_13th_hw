@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="ko">
+    <head>
+    <meta charset="UTF-8" />
+    <link rel = "stylesheet" type="text/css" href="{% static "css/project.css" %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LIKELION 13th Django Session</title>
+
+    </head>
+    <body class="body-container">
+        {% include 'shared/_navbar.html' %}
+
+        {% block content %}
+
+        {% endblock %}
+
+    </body>
+</html>
