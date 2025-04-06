@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.mainpage, name="mainpage"),
     path('second', views.secondpage, name ="secondpage"),
+    path('week2page', views.week2page, name ="week2page"),
+    path('freepage', views.freepage, name ="freepage"),
 ]

@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+
+{% block title %}🐶{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/bunny.css' %}">
+{% endblock %}
+
+
+<div class="bunny-home">
+    <h1>🐶 귀여운 강아지 천국 🐶</h1>
+    <p>이곳은 귀여운 강아지들로 가득한 힐링 공간입니다 💖</p>
+
+<main class="gallery">
+    <img src="{% static "images/dog1.png" %}" alt=" 강아지 " />
+    <img src="{% static "images/dog2.png" %}" alt=" 강아띠 " />
+    <img src="{% static "images/dog3.png" %}" alt=" 멍멍이 " />
+    <img src="{% static "images/dog4.png" %}" alt=" 뭉멍이 " />
+    <img src="{% static "images/dog5.png" %}" alt=" 개 " />
+</main>
+
+<footer>
+    <p>🐶 강아지는 귀엽다 🐶</p>
+</footer>
+{% endblock %}

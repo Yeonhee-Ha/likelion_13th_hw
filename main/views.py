@@ -20,3 +20,9 @@ def mainpage(request):
 
 def secondpage(request):
     return render(request, 'main/secondpage.html')
+
+def week2page(request):
+    return render(request, 'main/week2page.html')
+
+def freepage(request):
+    return render(request, 'main/freepage.html')

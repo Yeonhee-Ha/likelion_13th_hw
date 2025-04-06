@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div class="container">
+    <h1 class="title">2주차 세션 정리</h1>
+
+    <section>
+        <h2 class="section-title">Template</h2>
+        <ul>
+            <li>html (template) / views / url 연결</li>
+            <li><code>urls.py</code> : <code>from main import views</code> (main의 views import)</li>
+            <li><code>urls.py</code> : <code>path('url', views.작성함수명, name="변수설정")</code></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2 class="section-title">Template 언어</h2>
+        <h3>01. 템플릿 변수</h3>
+        <ul>
+            <li>변수: <code> 변수명 </code></li>
+            <li>변수의 속성: <code> 변수명.속성명 </code></li>
+            <li>리스트의 index: <code> list명.list순서 </code></li>
+            <li>딕셔너리의 key: <code> dict.key </code></li>
+        </ul>
+
+        <h3>02. 템플릿 태그</h3>
+        <p>조건문:</p>
+<pre><code>% if 조건 %
+    ...
+% else %
+    ...
+% endif %
+</code></pre>
+        <p>반복문:</p>
+<pre><code>% for num in nums %
+    num 
+% endfor %
+</code></pre>
+
+
+    <section>
+        <h2 class="section-title">Template 상속</h2>
+        <ul>
+            <li><code>% block content % ... % endblock %</code></li>
+            <li><code>% extends 'base.html' %</code></li>
+        </ul>
+        <p class="note">※ <code>settings.py</code>에 os import 및 템플릿 경로 추가 필요</p>
+        <p>- navbar, footer 분리 추천</p>
+    </section>
+
+    <section>
+        <h2 class="section-title">Static</h2>
+        <ul>
+            <li>경로: <code>project/css</code>, <code>project/images</code></li>
+        </ul>
+        <p class="note">※ <code>settings.py</code>에서 static 경로 설정 필수</p>
+    </section>
+</div>
+
+{% endblock %}
