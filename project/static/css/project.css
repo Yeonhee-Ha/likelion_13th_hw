@@ -1,0 +1,28 @@
+a {
+    text-decoration: none;
+}
+
+.body-container {
+    background-color: #111;
+    color: #fff;
+    margin: 20px;
+}
+.navbar-container {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    gap: 40px;
+    background-color: #ff9364;
+    font-size: 18px;
+}
+.navbar-link {
+    color: #5c3900;
+    font-size: 30px;
+}
+.navbar-link:hover {
+    color: #111;
+}
+.contents {
+    font-size: 50px;
+    margin: 20px;
+}
