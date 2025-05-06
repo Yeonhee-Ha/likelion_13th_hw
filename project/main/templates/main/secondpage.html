@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1 class = "contents"> 2025 멋쟁이사자처럼 13기</h1>
+    <div class = "contents">This is Second page</div>
+    <div>
+        {% for blog in blogs %}
+        <div>
+            <hr/>
+            <h3>{{blog.title}}</h3>
+            {{blog.writer}} | {{blog.pub_date}}<br>
+            {{blog.summary}}
+            <a href="{% url 'main:detail' blog.id %}">자세히 보기 </a>
+            <br>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
