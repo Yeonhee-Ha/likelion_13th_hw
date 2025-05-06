@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #fffafc;
+    color: #444;
+    text-align: center;
+}
+
+.body-container {
+    background-color: #fffafc;
+    color: #fff;
+    margin: 20px;
+}
+
+.bunny-home h1 {
+    font-size: 2.5rem;
+    color: #b77e55; /* 예쁜 핑크색 */
+    margin-top: 2rem;
+}
+
+.bunny-home p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #555;
+}
+
+header {
+    background-color: #ffe7f0;
+    padding: 40px 20px;
+    border-bottom: 4px solid #f8c8dc;
+}
+
+header h1 {
+    font-size: 2.8rem;
+    color: #d36ba6;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #aa5d86;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 30px;
+    gap: 20px;
+    background-color: #fff0f5;
+}
+
+.gallery img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+footer {
+    background-color: #ffeaf4;
+    padding: 20px;
+    font-size: 1rem;
+    color: #b06b9a;
+}

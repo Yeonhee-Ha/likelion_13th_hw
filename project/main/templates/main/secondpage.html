@@ -3,16 +3,35 @@
 
     <h1 class = "contents"> 2025 멋쟁이사자처럼 13기</h1>
     <div class = "contents">This is Second page</div>
+
+    <!-- Blog 목록 출력 -->
     <div>
+        <h2>Blog 목록</h2>
+        <hr/>
         {% for blog in blogs %}
         <div>
-            <hr/>
             <h3>{{blog.title}}</h3>
             {{blog.writer}} | {{blog.pub_date}}<br>
             {{blog.summary}}
-            <a href="{% url 'main:detail' blog.id %}">자세히 보기 </a>
+            <a href="{% url 'main:detail_blog' blog.id %}">자세히 보기 </a>
             <br>
         </div>
         {% endfor %}
     </div>
+
+    <!-- Post 목록 출력 -->
+    <div>
+        <h2>Post 목록</h2>
+        <hr/>
+        {% for post in posts %}
+        <div>
+            <h3>{{ post.title }}</h3>
+            {{ post.writer }} | {{ post.pub_date }}<br>
+            {{ post.content|slice:":100" }}...  <!-- 간단한 내용 미리보기 -->
+            <a href="{% url 'main:detail_post' post.id %}">자세히 보기</a>
+            <br>
+        </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}

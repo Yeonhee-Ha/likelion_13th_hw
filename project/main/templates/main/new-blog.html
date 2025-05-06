@@ -1,9 +1,11 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<form action="{% url 'main:create' %}" method="POST" enctype="multipart/from-data">
+<form action="{% url 'main:create_blog' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+    <h2>Blog 생성</h2>
+    <hr/>
     <p>제목 : <input type="text" name="title" /></p>
     <p>작성자 : <input type="text" name="writer" /></p>
-    <o>사진 : <input type="file" name="image"></p>
+    <p>사진 : <input type="file" name="image"></p>
     <p>내용 :<textarea type="text" name="content" id="" cols="30" rows="10"></textarea>
     </p>
     <button type="submit">제출</button>
