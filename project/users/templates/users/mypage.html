@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form action="{% url 'users:mypage' %}" method="POST">
+    {% csrf_token %}
+    <h1> <b>MY PAGE</b> </h1>
+    <h3> {{user.profile.nickname}} 님 안녕하세요 </h3>
+    <h3> 당신의 학과는 {{user.profile.major}} </h3>
+</form>
+{% endblock %}
