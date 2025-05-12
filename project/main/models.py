@@ -1,9 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Blog(models.Model):
     title = models.CharField(max_length=50)
-    writer = models.CharField(max_length=30)
+    writer = models.ForeignKey(User, on_delete=models.CASCADE) 
     content = models.TextField()
     pub_date = models.DateTimeField()
     image = models.ImageField(upload_to="blog/", blank=True, null=True)
@@ -17,7 +18,7 @@ class Blog(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100) 
-    writer = models.CharField(max_length=30) 
+    writer = models.ForeignKey(User, on_delete=models.CASCADE) 
     category = models.CharField(max_length=50, default="일반") 
     content = models.TextField()              
     pub_date = models.DateTimeField()

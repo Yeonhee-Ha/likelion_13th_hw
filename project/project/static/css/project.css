@@ -35,3 +35,94 @@ h1 {
     font-size: 50px;
     margin: 20px;
 }
+
+
+/* 공통 컨테이너 */
+.mypage-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333;
+}
+
+/* 사용자 정보 박스 */
+.user-info {
+    background-color: #f5f8fa;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.user-info h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.user-info p {
+    margin: 5px 0;
+}
+
+/* 구분 섹션 */
+.section {
+    margin-bottom: 50px;
+}
+
+.section h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    padding-left: 5px;
+}
+
+/* 카드 레이아웃 */
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+/* 각 카드 스타일 */
+.card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.07);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #34495e;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+    margin: 8px 0;
+}
+
+/* 자세히 보기 버튼 */
+.btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 14px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #217dbb;
+}

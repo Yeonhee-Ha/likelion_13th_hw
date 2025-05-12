@@ -13,7 +13,7 @@ urlpatterns = [
     #blog
     path('new-blog', new_blog, name="new-blog"),
     path('create-blog', create_blog, name="create_blog"),
-    path('detail/blog/<int:id>/', detail_blog, name = "detail_blog"),
+    path('detail/blog/<int:id>', detail_blog, name = "detail_blog"),
     path('edit/blog/<int:id>', edit_blog, name="edit_blog"),
     path('update/blog/<int:id>', update_blog, name="update_blog"),
     path('delete/blog/<int:id>', delete_blog, name="delete_blog"),

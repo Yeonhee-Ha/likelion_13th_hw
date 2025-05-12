@@ -37,8 +37,16 @@ def signup(request):
                 )
             nickname = request.POST['nickname']
             major = request.POST['major']
+            hobby = request.POST['hobby']
+            birthday = request.POST['birthday']
             
-            profile = Profile(user=user, nickname = nickname, major=major)
+            profile = Profile(
+                user=user, 
+                nickname = nickname, 
+                major=major, 
+                hobby = hobby, 
+                birthday = birthday
+            )
             profile.save()
             
             auth.login(request, user)

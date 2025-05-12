@@ -7,8 +7,8 @@
         <!--로그인 시 보이는 화면-->
         <ul class="nav-link-account">
             <li class="nav-link-user">{{user.username}}</li>
-            <li><a href="{%url 'accounts:logout'%}">로그아웃</a></li>
-            <li><a href= "#">mypage</a></li>
+            <li><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
+            <li><a href="{% url 'users:mypage' %}">mypage</a></li>
         </ul>
         {% else %}
 

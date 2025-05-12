@@ -6,3 +6,5 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete= models.CASCADE)
     nickname = models.TextField(max_length=10)
     major = models.TextField(null=True, max_length=30)
+    hobby = models.TextField(null= True, max_length=20)
+    birthday = models.DateField(null=True, blank=True)

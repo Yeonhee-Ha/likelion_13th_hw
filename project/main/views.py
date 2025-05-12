@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
+from django.contrib.auth.models import User
 from .models import *
 # Create your views here.
 
@@ -45,7 +46,7 @@ def create_blog(request):
         new_blog = Blog()
         
         new_blog.title = request.POST['title']
-        new_blog.writer = request.POST['writer']
+        new_blog.writer = request.user
         new_blog.content = request.POST['content']
         new_blog.pub_date = timezone.now()
         new_blog.image = request.FILES.get('image')
@@ -61,7 +62,7 @@ def create_post(request):
     new_post = Post()
     
     new_post.title = request.POST['title']
-    new_post.writer = request.POST['writer']
+    new_post.writer = request.user
     new_post.content = request.POST['content']
     new_post.pub_date = timezone.now()
     new_post.image = request.FILES.get('image')
@@ -84,7 +85,7 @@ def edit_post(request, id):
 def update_blog(request, id):
     update_blog = Blog.objects.get(pk=id)
     update_blog.title = request.POST['title']
-    update_blog.writer = request.POST['writer']
+    update_blog.writer = request.users
     update_blog.content = request.POST['content']
     update_blog.pub_date = timezone.now()
     update_blog.image = request.FILES.get('image')
@@ -96,7 +97,7 @@ def update_blog(request, id):
 def update_post(request, id):
     update_post = Post.objects.get(pk=id)
     update_post.title = request.POST['title']
-    update_post.writer = request.POST['writer']
+    update_post.writer = request.users
     update_post.category = request.POST.get('category', '일반')
     update_post.content = request.POST['content']
     update_post.pub_date = timezone.now()
