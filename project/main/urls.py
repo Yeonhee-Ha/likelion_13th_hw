@@ -25,6 +25,9 @@ urlpatterns = [
     path('edit/post/<int:id>', edit_post, name="edit_post"),
     path('update/post/<int:id>', update_post, name="update_post"),
     path('delete/post/<int:id>', delete_post, name="delete_post"),
+    
+    path('tag-list', tag_list, name = "tag-list"),
+    path('tag-blogs/<int:tag_id>', tag_blogs, name="tag-blogs"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
