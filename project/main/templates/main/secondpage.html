@@ -25,9 +25,19 @@
         {% endfor %}
     </div>
 
+    <hr/>
+    <hr/>
+
     <!-- Post 목록 출력 -->
     <div>
-        <h2>Post 목록</h2>
+        <h2>Post</h2>
+        <div>
+            {% if user.is_authenticated %}
+            <a href = "{% url 'main:new-post' %}"> 새 글 작성하기 </a>
+            {% endif %}
+        </div>
+
+        <h3>목록</h3>
         <hr/>
         {% for post in posts %}
         <div>

@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -45,6 +46,9 @@ def detail_blog(request, id):
         new_comment.writer=request.user
         new_comment.content = request.POST['content']
         new_comment.pub_date = timezone.now()
+
+        new_comment.post = None  # 또는 생략 가능
+
         new_comment.save()
         return redirect('main:detail_blog', id)
     
@@ -52,6 +56,24 @@ def detail_blog(request, id):
 
 def detail_post(request, id):
     post = get_object_or_404(Post, pk=id)
+
+    if request.method == 'GET':
+        comments = Comment.objects.filter(post=post)
+        return render(request, 'main/detail_post.html', {'post':post, 'comments': comments})
+    
+    elif request.method == 'POST':
+        new_comment = Comment()
+        new_comment.post = post
+        new_comment.writer=request.user
+        new_comment.content = request.POST['content']
+        new_comment.pub_date = timezone.now()
+
+        new_comment.blog = None
+
+        new_comment.save()
+        return redirect('main:detail_post', id)
+
+
     return render(request, 'main/detail_post.html', {'post': post })
 
 #create
@@ -68,7 +90,8 @@ def create_blog(request):
         new_blog.save()
         
         #본문을 띄어쓰기 기준으로 나누기
-        words = new_blog.content.split(' ')
+        pattern = r'\s+'   # r을 쓰면 백슬래시 1개만 써도 됨
+        words = re.split(pattern, new_blog.content)
         tag_list = []
         
         # 나눈 단어가 '#'으로 시작한다면 tag_list에 저장
@@ -80,7 +103,7 @@ def create_blog(request):
         for t in tag_list:
             #get_or_create() -> DB에 객체가 있다면 불러오고 없으면 만들어어
             tag, boolean = Tag.objects.get_or_create(name=t)
-            new_blog.tags.add(tag.id)
+            new_blog.tags.add(tag)
         
 
         return redirect('main:detail_blog', new_blog.id)
@@ -90,18 +113,40 @@ def create_blog(request):
 
 
 def create_post(request):
-    new_post = Post()
+    if request.user.is_authenticated:
+        new_post = Post()
+        
+        new_post.title = request.POST['title']
+        new_post.writer = request.user
+        new_post.content = request.POST['content']
+        new_post.pub_date = timezone.now()
+        new_post.image = request.FILES.get('image')
+        new_post.category = request.POST.get('category', '일반')
+        
+        new_post.save()
+
+        #본문을 띄어쓰기 기준으로 나누기
+        pattern = r'\s+'   # r을 쓰면 백슬래시 1개만 써도 됨
+        words = re.split(pattern, new_post.content)
+        tag_list = []
+        
+        # 나눈 단어가 '#'으로 시작한다면 tag_list에 저장
+        for w in words:
+            if len(w)>0:
+                if w[0] == '#':
+                    tag_list.append(w[1:]) 
+                #tag_list에 있는 Tag들을 new_blog의 tags에 추가
+        for t in tag_list:
+            #get_or_create() -> DB에 객체가 있다면 불러오고 없으면 만들어어
+            tag, boolean = Tag.objects.get_or_create(name=t)
+            new_post.tags.add(tag)
+
+
     
-    new_post.title = request.POST['title']
-    new_post.writer = request.user
-    new_post.content = request.POST['content']
-    new_post.pub_date = timezone.now()
-    new_post.image = request.FILES.get('image')
-    new_post.category = request.POST.get('category', '일반')
+        return redirect('main:detail_post', new_post.id)
     
-    new_post.save()
-    
-    return redirect('main:detail_post', new_post.id)
+    else:
+        return redirect('main:new_post')  # 혹은 에러 처리`
 
 #edit
 def edit_blog(request, id):
@@ -126,7 +171,8 @@ def update_blog(request, id):
         update_blog.save()
         
         #본문을 띄어쓰기 기준으로 나누기
-        words = update_blog.content.split(' ')
+        pattern = r'\s+'   # r을 쓰면 백슬래시 1개만 써도 됨
+        words = re.split(pattern, update_blog.content)
         tag_list = []
         
         # 나눈 단어가 '#'으로 시작한다면 tag_list에 저장
@@ -139,7 +185,7 @@ def update_blog(request, id):
         for t in tag_list:
             #get_or_create() -> DB에 객체가 있다면 불러오고 없으면 만들어어
             tag, boolean = Tag.objects.get_or_create(name=t)
-            update_blog.tags.add(tag.id)
+            update_blog.tags.add(tag)
         
 
         return redirect('main:detail_blog', update_blog.id)
@@ -148,16 +194,35 @@ def update_blog(request, id):
 
 def update_post(request, id):
     update_post = Post.objects.get(pk=id)
-    update_post.title = request.POST['title']
-    update_post.writer = request.users
-    update_post.category = request.POST.get('category', '일반')
-    update_post.content = request.POST['content']
-    update_post.pub_date = timezone.now()
-    update_post.image = request.FILES.get('image')
-    
-    update_post.save()
-    
-    return redirect('main:detail_post', update_post.id)
+
+    if request.user.is_authenticated and request.user == update_post.writer:
+        update_post.title = request.POST['title']
+        update_post.writer = request.user
+        update_post.category = request.POST.get('category', '일반')
+        update_post.content = request.POST['content']
+        update_post.pub_date = timezone.now()
+        update_post.image = request.FILES.get('image')
+        
+        update_post.save()
+
+        #본문을 띄어쓰기 기준으로 나누기
+        pattern = r'\s+'   # r을 쓰면 백슬래시 1개만 써도 됨
+        words = re.split(pattern, update_post.content)
+        tag_list = []
+        
+        # 나눈 단어가 '#'으로 시작한다면 tag_list에 저장
+        for w in words:
+            if len(w)>0:
+                if w[0] == '#':
+                    tag_list.append(w[1:]) 
+                #tag_list에 있는 Tag들을 new_blog의 tags에 추가
+        for t in tag_list:
+            #get_or_create() -> DB에 객체가 있다면 불러오고 없으면 만들어어
+            tag, boolean = Tag.objects.get_or_create(name=t)
+            update_post.tags.add(tag)
+        
+        return redirect('main:detail_post', update_post.id)
+    return redirect('accounts:login', update_post.id)
 
 #delete
 def delete_blog(request, id):
@@ -183,3 +248,26 @@ def tag_blogs(request, tag_id):#특정 태그를 가진 게시글의 목록을 �
     'tag': tag,
     'blogs': blogs
     })
+
+def tag_posts(request, tag_id):#특정 태그를 가진 게시글의 목록을 볼 수 있는 페이지
+    tag=get_object_or_404(Tag, id=tag_id)
+    posts=tag.posts.all()
+    return render(request, 'main/tag-post.html',{
+    'tag': tag,
+    'posts': posts
+    })
+
+def delete_comment(request, id):
+    comment = get_object_or_404(Comment, id=id)
+
+    # 요청한 사용자가 댓글 작성자인지 확인
+    if request.user == comment.writer:
+        if comment.blog:  # 블로그 댓글이라면
+            redirect_id = comment.blog.id
+            comment.delete()
+            return redirect('main:detail_blog', redirect_id)
+        
+        elif comment.post:  # 포스트 댓글이라면
+            redirect_id = comment.post.id
+            comment.delete()
+            return redirect('main:detail_post', redirect_id)

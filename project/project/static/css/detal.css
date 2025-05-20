@@ -1,0 +1,113 @@
+/* 전체 페이지 기본 스타일 */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+}
+
+/* 게시글 제목 */
+h3 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* 게시글 정보 */
+p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* 태그 영역 */
+p a {
+    text-decoration: none;
+    color: #3498db;
+    margin-right: 8px;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* 이미지 스타일 */
+img {
+    margin-top: 10px;
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* 수정/삭제 링크 */
+a[href*="edit_post"],
+a[href*="delete_post"] {
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    color: white;
+    background-color: #e74c3c;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a[href*="edit_post"]:hover,
+a[href*="delete_post"]:hover {
+    background-color: #c0392b;
+}
+
+/* 댓글 영역 */
+.comment_container {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+/* 댓글 작성 폼 */
+.comment_form input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.comment_form input[type="submit"] {
+    padding: 8px 16px;
+    margin-left: 8px;
+    background-color: #2ecc71;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.comment_form input[type="submit"]:hover {
+    background-color: #27ae60;
+}
+
+/* 댓글 리스트 */
+.comment_list {
+    margin-top: 20px;
+}
+
+.comment_list h3 {
+    font-size: 20px;
+    color: #555;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+}
+
+.comment_list h4 {
+    margin: 10px 0 5px;
+}
+
+.comment_list p {
+    margin: 5px 0;
+}

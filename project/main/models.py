@@ -26,22 +26,30 @@ class Blog(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100) 
-    writer = models.ForeignKey(User, on_delete=models.CASCADE) 
+    writer = models.ForeignKey(User, null = False, blank=False, on_delete=models.CASCADE) 
     category = models.CharField(max_length=50, default="일반") 
     content = models.TextField()              
     pub_date = models.DateTimeField()
     image = models.ImageField(upload_to='post/', blank=True, null=True)  # 이미지 업로드
+    tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
 
     def __str__(self):
         return self.title
+    
+    def summary(self):
+        return self.content[:20]
 
 class Comment(models.Model):
     content = models.TextField()
     pub_date = models.DateTimeField()
     writer = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
-    blog = models.ForeignKey(Blog, null=False, blank=False, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, null=True, blank=True, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.CASCADE)
     
-    def str (self):
-        return self.blog.title + " : " + self.content[:20] + "by" + self.writer.profile.nickname
+    def __str__(self):
+        blog_title = self.blog.title if self.blog else "No Blog"
+        nickname = self.writer.profile.nickname if hasattr(self.writer, 'profile') else "Unknown"
+        return f"{blog_title} : {self.content[:20]} by {nickname}"
+
     
     

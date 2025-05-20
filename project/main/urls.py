@@ -28,6 +28,9 @@ urlpatterns = [
     
     path('tag-list', tag_list, name = "tag-list"),
     path('tag-blogs/<int:tag_id>', tag_blogs, name="tag-blogs"),
+    path('tag-posts/<int:tag_id>', tag_posts, name="tag-posts"),
+
+    path('comment/delete/<int:id>/', delete_comment, name='delete_comment'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
