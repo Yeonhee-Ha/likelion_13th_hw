@@ -10,8 +10,5 @@ class Profile(models.Model):
     birthday = models.DateField(null=True, blank=True)
     
     
-class Tag(models.Model):
-    name=models.CharField(max_length=30, null=False, blank=False)
 
-    def __str__(self):
-        return self.name
+
