@@ -271,3 +271,11 @@ def delete_comment(request, id):
             redirect_id = comment.post.id
             comment.delete()
             return redirect('main:detail_post', redirect_id)
+
+def tag_redirect(request, tag_id):
+    tag = get_object_or_404(Tag, id=tag_id)
+
+    if tag.blogs.exists():
+        return redirect('main:tag-blogs', tag.id)
+    elif tag.posts.exists():
+        return redirect('main:tag-posts', tag.id)
