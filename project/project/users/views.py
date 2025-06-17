@@ -7,11 +7,11 @@ from main.models import Post,Blog
 # Create your views here.
 def mypage(request, id):
     
-    user = get_object_or_404(User, pk=id)
+    user_profile = get_object_or_404(User, pk=id)
     context = {
-        'user': user,
-        'user_blogs' : Blog.objects.filter(writer=user),
-        'user_posts' : Post.objects.filter(writer=user),
+        'user_profile': user_profile,
+        'user_blogs' : Blog.objects.filter(writer=user_profile),
+        'user_posts' : Post.objects.filter(writer=user_profile),
     }
     return render(request, 'users/mypage.html', context)
 

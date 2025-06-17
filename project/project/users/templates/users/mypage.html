@@ -4,25 +4,26 @@
 <div class="mypage-container">
     <h1><b>MY PAGE</b></h1>
     <div class="user-info">
-        <h3>{{ user }} 님 안녕하세요 😊</h3>
-        <p> {{user.profile}} </p>
+        <h3>{{ user_profile.username }} 님 안녕하세요 😊</h3>
+        <p> {{user_profile.profile}} </p>
     </div>
 
     <div class = "user-info">
-        <p>팔로워<br>{{ user.profile.followers.count }}명</p>
-        <p>팔로잉<br>{{ user.profile.followings.count }}명</p>
+        <p>팔로워<br>{{ user_profile.profile.followers.count }}명</p>
+        <p>팔로잉<br>{{ user_profile.profile.followings.count }}명</p>
 
-        {% if request.user != user %}
-            {% if request.user.profile in user.profile.followers.all %}
-                <a href="{% url 'users:follow' user.id %}">
+        {% if request.user != user_profile %}
+            {% if request.user.profile in user_profile.profile.followers.all %}
+                <a href="{% url 'users:follow' user_profile.id %}">
                     <button type="button" class="btn btn-outline-info">언팔로우</button>
                 </a>
             {% else %}
-                <a href="{% url 'users:follow' user.id %}">
+                <a href="{% url 'users:follow' user_profile.id %}">
                     <button type="button" class="btn btn-info">팔로우 </button>
                 </a>
             {% endif %}
         {% endif %}
+
 
     
     </div>
