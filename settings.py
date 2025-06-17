@@ -21,13 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+l=&3lw5q7vi!dl6_v13cw_r0^=729l2c2bw2v($buv*&g4$gf'
 SECRET_KEY = 'django-insecure-9v13h(d)-plu00bz^@&g@=&ydr2sse5s(=998k^u*-mujep)1h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
 ALLOWED_HOSTS = ['*']
 
 
@@ -60,7 +58,6 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'project','templates')],
         'DIRS': [os.path.join(BASE_DIR, 'project', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -128,12 +125,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'project', 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-#이미지 업로드
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'project', 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
