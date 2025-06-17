@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% block content %}
+    <h3>{{blog.title}}</h3>
+    <a href = "{% url 'users:mypage' blog.writer.id %}"> 작성자 : {{blog.writer}} </a>
+        <p> 작성자 : {{blog.writer}} </p>
+        <p> 날짜 : {{blog.pub_date}} </p>
+
+
+        <!-- likes -->
+        <a href= {% url 'main:likes' blog.id %}>
+            {% if user in blog.like.all %} 취소 {% else %} 좋아요 {% endif %}
+        </a>
+        {{blog.like_count}}개
+        
+        <!-- tag -->
+        <p>
+            {% for tag in blog.tags.all %}
+            <a href="{% url 'main:tag-blogs' tag.id %}">#{{ tag.name }} </a>
+            {% endfor %}
+        </p>
+        
+        <hr/>
+
+        <!-- imgae -->
+        {% if blog.image %}
+            <p><img src="{{ blog.image.url }}" alt="사진" width="100px"></p>
+        {% endif %}
+
+        <!-- content -->
+        <p>{{blog.content}}</p>
+
+        {% if blog.writer == user %}
+        <a href="{% url 'main:edit_blog' blog.id %}">글 수정하기</a>
+        <a href="{% url 'main:delete_blog' blog.id %}">삭제하기</a>
+        {% endif %}
+    <br>
+
+    <!-- comment -->
+    <div class="comment_container">
+        <div class="comment_form">
+            <h2></h2>
+                <form action="{% url 'main:detail_blog' blog.id %}"method="POST">
+                    {% csrf_token %}
+                    댓글 쓰기 : <input type="text" name="content">
+                    <input type="submit" name="submit">
+                </form>
+            </div>
+
+            <div class="comment_list">
+                {% for comment in comments %}
+                    <hr>
+                    <h4>작성자 : {{comment.writer}}</h4>
+                    <p>내용 : {{comment.content}}</p>
+                    <p>{{comment.pub_date}}</p>
+
+                    {% if user.is_authenticated and user == comment.writer %}
+                        <form action="{% url 'main:delete_comment' comment.id %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" onclick="return confirm('댓글을 삭제하시겠습니까?')">삭제</button>
+                        </form>
+                    {% endif %}
+                {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
