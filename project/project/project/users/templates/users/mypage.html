@@ -4,36 +4,19 @@
 <div class="mypage-container">
     <h1><b>MY PAGE</b></h1>
     <div class="user-info">
-        <h3>{{ user }} 님 안녕하세요 😊</h3>
-        <p> {{user.profile}} </p>
-    </div>
-
-    <div class = "user-info">
-        <p>팔로워<br>{{ user.profile.followers.count }}명</p>
-        <p>팔로잉<br>{{ user.profile.followings.count }}명</p>
-
-        {% if request.user != user %}
-            {% if request.user.profile in user.profile.followers.all %}
-                <a href="{% url 'users:follow' user.id %}">
-                    <button type="button" class="btn btn-outline-info">언팔로우</button>
-                </a>
-            {% else %}
-                <a href="{% url 'users:follow' user.id %}">
-                    <button type="button" class="btn btn-info">팔로우 </button>
-                </a>
-            {% endif %}
-        {% endif %}
-
-    
+        <h3>{{ user.profile.nickname }} 님 안녕하세요 😊</h3>
+        <p><strong>학과:</strong> {{ user.profile.major }}</p>
+        <p><strong>취미:</strong> {{ user.profile.hobby }}</p>
+        <p><strong>생일:</strong> {{ user.profile.birthday }}</p>
     </div>
 
     <hr/>
 
     <div class="section">
         <h2><b>📮 POST</b></h2>
-        {% if user_posts %}
+        {% if posts %}
             <div class="card-list">
-                {% for post in user_posts %}
+                {% for post in posts %}
                 <div class="card">
                     <h3>{{ post.title }}</h3>
                     <p><strong>{{ post.writer }}</strong> | {{ post.pub_date }}</p>
@@ -51,9 +34,9 @@
 
     <div class="section">
         <h2><b>📝 BLOG</b></h2>
-        {% if user_blogs %}
+        {% if blogs %}
             <div class="card-list">
-                {% for blog in user_blogs %}
+                {% for blog in blogs %}
                 <div class="card">
                     <h3>{{ blog.title }}</h3>
                     <p><strong>{{ blog.writer }}</strong> | {{ blog.pub_date }}</p>

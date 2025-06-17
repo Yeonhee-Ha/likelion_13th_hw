@@ -35,10 +35,6 @@ urlpatterns = [
 
     # comment
     path('comment/delete/<int:id>/', delete_comment, name='delete_comment'),
-
-    #like
-    path('likes/<int:blog_id>', likes, name="likes"),
-    path('likes-post/<int:post_id>', likes_post, name="likes_post"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

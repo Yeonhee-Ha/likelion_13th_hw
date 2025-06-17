@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.contrib import auth
 from django.contrib.auth.models import User 
 from .models import Profile
@@ -35,19 +35,19 @@ def signup(request):
                 username=request.POST['username'],
                 password=request.POST['password']
                 )
-            # nickname = request.POST['nickname']
-            # major = request.POST['major']
-            # hobby = request.POST['hobby']
-            # birthday = request.POST['birthday']
+            nickname = request.POST['nickname']
+            major = request.POST['major']
+            hobby = request.POST['hobby']
+            birthday = request.POST['birthday']
             
-            # profile = Profile(
-            #     user=user, 
-            #     nickname = nickname, 
-            #     major=major, 
-            #     hobby = hobby, 
-            #     birthday = birthday
-            # )
-            # profile.save()
+            profile = Profile(
+                user=user, 
+                nickname = nickname, 
+                major=major, 
+                hobby = hobby, 
+                birthday = birthday
+            )
+            profile.save()
             
             auth.login(request, user)
             return redirect('/')

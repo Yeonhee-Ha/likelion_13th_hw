@@ -279,3 +279,27 @@ def tag_redirect(request, tag_id):
         return redirect('main:tag-blogs', tag.id)
     elif tag.posts.exists():
         return redirect('main:tag-posts', tag.id)
+
+def likes (request, blog_id):
+    blog = get_object_or_404(Blog, id=blog_id)
+    if request.user in blog.like.all():
+        blog.like.remove (request.user)
+        blog.like_count -= 1
+        blog.save()
+    else:
+        blog.like.add(request.user)
+        blog.like_count += 1
+        blog.save()
+    return redirect('main:detail_blog', blog.id)
+
+def likes_post (request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.user in post.like.all():
+        post.like.remove (request.user)
+        post.like_count -= 1
+        post.save()
+    else:
+        post.like.add(request.user)
+        post.like_count += 1
+        post.save()
+    return redirect('main:detail_post', post.id)

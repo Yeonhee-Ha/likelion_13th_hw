@@ -15,15 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from main import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+"""
+
+"""
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.mainpage, name="mainpage"),
-    path('second', views.secondpage, name ="secondpage"),
-    path('week2page', views.week2page, name ="week2page"),
-    path('freepage', views.freepage, name ="freepage"),
-]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('', views.mainpage, name = "mainpage"),
+    path('second', views.secondpage, name="secondpage"),
+    path('', include('main.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('users/', include('users.urls')),
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
