@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% block content %}
+    <h3>{{post.title}}</h3>
+        <p> 작성자 : {{post.writer}} </p>
+        <p> 날짜 : {{post.pub_date}} </p>
+        <p> 카테고리 : {{post.category}} </p>
+
+        <!-- tag -->
+        <p>
+            {% for tag in post.tags.all %}
+            <a href="{% url 'main:tag-posts' tag.id %}">#{{ tag.name }} </a>
+            {% endfor %}
+        </p>
+
+        <hr/>
+        <!-- imagge -->
+        {% if post.image %}
+            <p><img src="{{ post.image.url }}" alt="사진" width="100px"></p>
+        {% endif %}
+
+        <!-- content -->
+        <p>{{post.content}}</p>
+        {% if post.writer == user %}
+            <a href="{% url 'main:edit_post' post.id %}">글 수정하기</a>
+            <a href="{% url 'main:delete_post' post.id %}">삭제하기</a>
+        {% endif %}
+    <br>
+
+    <div class="comment_container">
+        <div class="comment_form">
+            <h2></h2>
+                <form action="{% url 'main:detail_post' post.id %}"method="POST">
+                    {% csrf_token %}
+                    댓글 쓰기 : <input type="text" name="content">
+                    <input type="submit" name="submit">
+                </form>
+            </div>
+
+            <div class="comment_list">
+                <h3> <b>댓글</b> </h3>
+                {% for comment in comments %}
+                    <hr>
+                    <h4>작성자 : {{comment.writer}}</h4>
+                    <p>내용 : {{comment.content}}</p>
+                    <p>{{comment.pub_date}}</p>
+
+                    {% if user.is_authenticated and user == comment.writer %}
+                        <form action="{% url 'main:delete_comment' comment.id %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" onclick="return confirm('댓글을 삭제하시겠습니까?')">삭제</button>
+                        </form>
+                    {% endif %}
+
+                {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}
