@@ -3,9 +3,16 @@
 <link rel="stylesheet" href="{% static 'css/detail.css' %}">
 {% block content %}
     <h3>{{post.title}}</h3>
+    <a href = "{% url 'users:mypage' post.writer.id %}"> 작성자 : {{post.writer}} </a>
         <p> 작성자 : {{post.writer}} </p>
         <p> 날짜 : {{post.pub_date}} </p>
         <p> 카테고리 : {{post.category}} </p>
+
+        <!-- likes -->
+        <a href= {% url 'main:likes_post' post.id %}>
+            {% if user in post.like.all %} 취소 {% else %} 좋아요 {% endif %}
+        </a>
+        {{post.like_count}}개 
 
         <!-- tag -->
         <p>
